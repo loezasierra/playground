@@ -8,6 +8,7 @@
 # for a total of 81 elements.
 # interp. A Sudoku Board
 
+# For easy example Board making
 B = False
 
 # A blank Sudoku Board
