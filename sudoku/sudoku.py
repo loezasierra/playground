@@ -83,6 +83,14 @@ class Board:
         
         # Print last divider
         printdivider()
+    
+
+    # Board Move -> Board
+    # fill board with given move
+    # B1 Move('A', 0, 5) should put a '5' at the top right of B1
+    # B1 Move('I', 8, 7) should put a '7' at the bottom left of B1
+    def fill(self, move):
+        return
 
 # For easy example Board making
 B = False
@@ -227,8 +235,14 @@ def main():
             break
         if user.quit():
             return
+    
+    # Store game board
+    board = Board(B1.board)
 
     while True:
+
+        # Print game board
+        board.printboard()
 
         # Print correct move formatting
         print('Valid move is "RowColumn Value"')
