@@ -10,15 +10,18 @@
 VALUE = [i for i in range(1, 10)]
 
 
-# Board is [Value || False][Value || False]   where each list is 9 elements long
+# BOARD is Board([Value || False][Value || False])   where each list is 9 elements long
 # for a total of 81 elements.
 # interp. A Sudoku Board
+class Board:
+    def __init__(self, b):
+        self.board = b
 
 # For easy example Board making
 B = False
 
 # A blank Sudoku Board
-B0 = [
+B0 = Board([
     [B, B, B, B, B, B, B, B, B],
     [B, B, B, B, B, B, B, B, B],
     [B, B, B, B, B, B, B, B, B],
@@ -28,10 +31,10 @@ B0 = [
     [B, B, B, B, B, B, B, B, B],
     [B, B, B, B, B, B, B, B, B],
     [B, B, B, B, B, B, B, B, B]
-]
+])
 
 # An easy Sudoku Board
-B1 = [
+B1 = Board([
     [B, 8, B, 7, B, 1, B, 3, B],
     [4, B, 9, B, B, B, B, B, B],
     [B, 5, B, B, 6, B, 4, 1, 8],
@@ -41,7 +44,7 @@ B1 = [
     [B, 6, B, 4, B, 7, B, 9, B],
     [1, B, B, B, B, 8, B, B, 4],
     [B, B, B, B, 5, B, B, 7, B]
-]
+])
 
 
 # L_INDEX is ['A', 'I']
