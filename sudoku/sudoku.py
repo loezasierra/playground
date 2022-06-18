@@ -102,6 +102,10 @@ def main():
 
     while True:
 
+        # Print correct move formatting
+        print('Valid move is "RowColumn Value"')
+        print('example: "B2 7"')
+
         # Get user input for move
         move = input(prompt)
 
