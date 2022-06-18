@@ -80,6 +80,9 @@ class Move:
         else:
             return False
 
+M0 = Move('A', 0, 5) # A move to place 5 at top left of Board
+M1 = Move('I', 8, 7) # A move to place 7 at bottom right of Board
+
 
 # USER_INPUT is UserInput(String)
 # interp. Input from the user at terminal
