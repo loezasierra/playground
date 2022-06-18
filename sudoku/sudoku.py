@@ -2,7 +2,13 @@
 
 # === Data Definitions ===
 
+
 # Value is [1, 9]
+# Interp. a valid Sudoku move value
+
+# List of valid values
+VALUE = [i for i in range(1, 10)]
+
 
 # Board is [Value || False][Value || False]   where each list is 9 elements long
 # for a total of 81 elements.
