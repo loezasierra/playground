@@ -16,6 +16,73 @@ VALUE = [i for i in range(1, 10)]
 class Board:
     def __init__(self, b):
         self.board = b
+    
+    # Board -> Terminal Output
+    # for printing a Board to terminal
+    # B1.printboard() should output:
+    """
+        0 1 2   3 4 5   6 7 8
+    -------------------------
+    A | . 8 . | 7 . 1 | . 3 . |
+    B | 4 . 9 | . . . | . . . |
+    C | . 5 . | . 6 . | 4 1 8 |
+    -------------------------
+    D | 7 . . | . . 9 | . . . |
+    E | 8 . . | 6 1 . | 5 . . |
+    F | . 3 5 | . . . | . 2 9 |
+    -------------------------
+    G | . 6 . | 4 . 7 | . 9 . |
+    H | 1 . . | . . 8 | . . 4 |
+    I | . 2 . | . 5 . | . 7 . |
+    -------------------------
+    """
+
+    def printboard(self):
+        # Print number header
+        print("    0 1 2   3 4 5   6 7 8")
+
+        # For printing divider
+        def printdivider():
+            # Print starting indent
+            print("  ", end="")
+
+            for i in range(24):
+                print("-", end="")
+
+            # Print last - with newline
+            print("-")
+
+        # Starting left side indeces at 'A'
+        index = 'A'
+
+        for i in range(9):
+            # Print dividers between rows
+            if (i % 3 == 0):
+                printdivider()
+            
+            # Print left side index
+            print(index + " | ", end="")
+            
+            # Advance index by 1 character for next iteration
+            index = chr(ord(index) + 1)
+
+            for j in range(9):
+                # Print . if false
+                if (self.board[i][j] == False):
+                    print(". ", end="")
+                # Otherwise print number
+                else:
+                    print(f'{self.board[i][j]} ', end="")
+                
+                # Print divider between squares
+                if (j in [2, 5, 8]):
+                    print("| ", end="")
+            
+            # Print newline
+            print()
+        
+        # Print last divider
+        printdivider()
 
 # For easy example Board making
 B = False
@@ -183,74 +250,6 @@ def main():
             print("Invalid input")
             print()
             break
-
-
-# Board -> Terminal Output
-# for printing a Board to terminal
-# printboard(B1) should output:
-"""
-    0 1 2   3 4 5   6 7 8
-  -------------------------
-A | . 8 . | 7 . 1 | . 3 . |
-B | 4 . 9 | . . . | . . . |
-C | . 5 . | . 6 . | 4 1 8 |
-  -------------------------
-D | 7 . . | . . 9 | . . . |
-E | 8 . . | 6 1 . | 5 . . |
-F | . 3 5 | . . . | . 2 9 |
-  -------------------------
-G | . 6 . | 4 . 7 | . 9 . |
-H | 1 . . | . . 8 | . . 4 |
-I | . 2 . | . 5 . | . 7 . |
-  -------------------------
-"""
-
-def printboard(b):
-    # Print number header
-    print("    0 1 2   3 4 5   6 7 8")
-
-    # For printing divider
-    def printdivider():
-        # Print starting indent
-        print("  ", end="")
-
-        for i in range(24):
-            print("-", end="")
-
-        # Print last - with newline
-        print("-")
-
-    # Starting left side indeces at 'A'
-    index = 'A'
-
-    for i in range(9):
-        # Print dividers between rows
-        if (i % 3 == 0):
-            printdivider()
-        
-        # Print left side index
-        print(index + " | ", end="")
-        
-        # Advance index by 1 character for next iteration
-        index = chr(ord(index) + 1)
-
-        for j in range(9):
-            # Print . if false
-            if (b[i][j] == False):
-                print(". ", end="")
-            # Otherwise print number
-            else:
-                print(f'{b[i][j]} ', end="")
-            
-            # Print divider between squares
-            if (j in [2, 5, 8]):
-                print("| ", end="")
-        
-        # Print newline
-        print()
-    
-    # Print last divider
-    printdivider()
 
 
 
