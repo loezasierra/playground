@@ -137,11 +137,15 @@ def main():
         print('Valid move is "RowColumn Value"')
         print('example: "B2 7"')
 
-        # Get user input for move
-        move = input(prompt)
+        # Get user input
+        user = UserInput(input(prompt))
 
-        # Store move as a Move
-        move = Move(move[0], move[1], move[3])
+        # Quit if user inputs 'q'
+        if user.quit():
+            return
+
+        # Store input as a Move
+        move = Move(user.input[0], user.input[1], user.input[3])
 
         # Check for move validity
         if (move.isvalid()):
