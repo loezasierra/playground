@@ -108,6 +108,18 @@ class UserInput:
         return (self.input.upper() == 'Q')
 
 
+# MOVE_INPUT is String of size 4
+# interp. a move input from user at terminal
+#         i[0] is L_INDEX
+#         i[1] is U_INDEX
+#         i[2] is " ", a space
+#         i[3] is VALUE
+
+# Valid MOVE_INPUT
+VMI1 = "B2 7"
+VMI2 = "D6 9"
+
+
 # == Funcitons ==
 
 
