@@ -69,16 +69,6 @@ class Move:
         self.indexl = indexl.upper()
         self.indexu = int(indexu)
         self.value = int(val)
-    
-    # Move -> Boolean
-    # Return true if Move is valid
-    # ('B', 7, 4) should return True
-    # ('J', 9, 0) should return False
-    def isvalid(self):
-        if (self.indexl in L_INDEX and self.indexu in U_INDEX and self.value in VALUE):
-            return True
-        else:
-            return False
 
 M0 = Move('A', 0, 5) # A move to place 5 at top left of Board
 M1 = Move('I', 8, 7) # A move to place 7 at bottom right of Board
@@ -109,6 +99,27 @@ class UserInput:
     # Any string longer than 1 should return False
     def quit(self):
         return (self.input.upper() == 'Q')
+    
+    # USER_INPUT -> Boolean
+    # Return true if input is MOVE_INPUT
+    # "B2 7" should return True
+    # "C9 8" should return False
+    # "D609" should return False
+    def ismove(self):
+        # Return false if input length not 4
+        if (len(self.input) != 4):
+            return False
+
+        # Check for valid characters
+        try:
+            indexl = self.input[0].upper()
+            indexu = int(self.input[1])
+            space = self.input[2]
+            value = int(self.input[3])
+        except:
+            return False
+
+        return (indexl in L_INDEX and indexu in U_INDEX and space == ' ' and value in VALUE)
 
 
 # MOVE_INPUT is String of size 4
@@ -159,14 +170,14 @@ def main():
         if user.quit():
             return
 
-        # Store input as a Move
-        move = Move(user.input[0], user.input[1], user.input[3])
-
-        # Check for move validity
-        if (move.isvalid()):
-            print("Valid move.")
+        # Validate user input as valid move input
+        if user.ismove():
+            # Store input as a Move
+            move = Move(user.input[0], user.input[1], user.input[3])
         else:
-            print("Invalid move.")
+            # Let user know of invalid input
+            print("Invalid input")
+            print()
 
 
 # Board -> Terminal Output
