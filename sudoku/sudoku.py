@@ -78,6 +78,7 @@ M1 = Move('I', 8, 7) # A move to place 7 at bottom right of Board
 # interp. Input from the user at terminal
 #         play returns True if input is 'P'
 #         quit returns True if input is 'Q'
+#         ismove returns True if input is MOVE_INPUT
 class UserInput:
     def __init__(self, input):
         self.input = input
