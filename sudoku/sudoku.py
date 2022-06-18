@@ -178,6 +178,7 @@ def main():
             # Let user know of invalid input
             print("Invalid input")
             print()
+            break
 
 
 # Board -> Terminal Output
