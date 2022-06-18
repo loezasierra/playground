@@ -58,7 +58,51 @@ L_INDEX = [chr(i) for i in range(ord('A'), ord('J'))]
 U_INDEX = [i for i in range(9)]
 
 
+# MOVE is Move(L_INDEX, U_INDEX, VALUE)
+# interp. a Sudoku move
+#         L_INDEX is the row of the move
+#         U_INDEX is the column of the move
+#         VALUE   is the value to put in row, column
+#         isvalid returns True if Move is valid
+class Move:
+    def __init__(self, indexl, indexu, val):
+        self.indexl = indexl.upper()
+        self.indexu = int(indexu)
+        self.value = int(val)
+    
+    # Move -> Boolean
+    # Return true if Move is valid
+    # ('B', 7, 4) should return True
+    # ('J', 9, 0) should return False
+    def isvalid(self):
+        if (self.indexl in L_INDEX and self.indexu in U_INDEX and self.value in VALUE):
+            return True
+        else:
+            return False
+
+
 # == Funcitons ==
+
+
+def main():
+
+    # Print header
+    print("Terminal Sudoku")
+
+    while True:
+
+        # Get user input for move
+        move = input("数独> ")
+
+        # Store move as a Move
+        move = Move(move[0], move[1], move[3])
+
+        # Check for move validity
+        if (move.isvalid()):
+            print("Valid move.")
+        else:
+            print("Invalid move.")
+
 
 # Board -> Terminal Output
 # for printing a Board to terminal
@@ -127,4 +171,8 @@ def printboard(b):
     # Print last divider
     printdivider()
 
-printboard(B1)
+
+
+# Run main
+if __name__ == '__main__':
+    main()
