@@ -249,7 +249,10 @@ def main():
             # Let user know of invalid input
             print("Invalid input")
             print()
-            break
+            continue
+
+        # Fill game board with move
+        board.fill(move)
 
 
 
