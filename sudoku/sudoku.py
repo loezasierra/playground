@@ -117,14 +117,18 @@ def main():
 
     # Print header
     print("Terminal Sudoku")
-    print("P to play, ^C to exit.")
+    print("'p' to play, 'q' to exit.")
     print()
 
-    # Start game once user inputs p
+    # Start game if user inputs 'p', quit if 'q'
     while True:
-        if (input(prompt).upper() == 'P'):
+        user = UserInput(input(prompt))
+
+        if user.play():
             print()
             break
+        if user.quit():
+            return
 
     while True:
 
