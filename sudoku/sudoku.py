@@ -38,6 +38,20 @@ B1 = [
 ]
 
 
+# L_INDEX is ['A', 'I']
+# interp. An index on the left side of the board
+
+# List of left side indices
+L_INDEX = [chr(i) for i in range(ord('A'), ord('J'))]
+
+
+# U_INDEX is [0, 8]
+# interp. An index on the top of the board
+
+# List of top indices
+U_INDEX = [i for i in range(9)]
+
+
 # == Funcitons ==
 
 # Board -> Terminal Output
