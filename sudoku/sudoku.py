@@ -84,6 +84,7 @@ class Move:
 # USER_INPUT is UserInput(String)
 # interp. Input from the user at terminal
 #         play returns True if input is 'P'
+#         quit returns True if input is 'Q'
 class UserInput:
     def __init__(self, input):
         self.input = input
