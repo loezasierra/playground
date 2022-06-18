@@ -81,6 +81,32 @@ class Move:
             return False
 
 
+# USER_INPUT is UserInput(String)
+# interp. Input from the user at terminal
+#         play returns True if input is 'P'
+class UserInput:
+    def __init__(self, input):
+        self.input = input
+    
+    # USER_INPUT -> Boolean
+    # Return true if input is 'P'
+    # "P" should return True
+    # "p" should return True
+    # Any other single char should return False
+    # Any string longer than 1 should return False
+    def play(self):
+        return (self.input.upper() == 'P')
+    
+    # USER_INPUT -> Boolean
+    # Return true if input is 'Q"
+    # "Q" should return True
+    # "q" should return True
+    # Any other single char should return False
+    # Any string longer than 1 should return False
+    def quit(self):
+        return (self.input.upper() == 'Q')
+
+
 # == Funcitons ==
 
 
