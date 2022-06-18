@@ -86,13 +86,24 @@ class Move:
 
 def main():
 
+    # Constants ==
+    prompt = "数独> "
+
     # Print header
     print("Terminal Sudoku")
+    print("P to play, ^C to exit.")
+    print()
+
+    # Start game once user inputs p
+    while True:
+        if (input(prompt).upper() == 'P'):
+            print()
+            break
 
     while True:
 
         # Get user input for move
-        move = input("数独> ")
+        move = input(prompt)
 
         # Store move as a Move
         move = Move(move[0], move[1], move[3])
