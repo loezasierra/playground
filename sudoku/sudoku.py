@@ -16,7 +16,15 @@ VALUE = [i for i in range(1, 10)]
 class Board:
     def __init__(self, b):
         self.board = b
-    
+
+        # FILLABLE is Fillable([Bool][Bool])   where each list is 9 elements long
+        # interp. The fillable positions by user on the board
+        #         True means user is able to fill element on Board
+        #         False means user is not able to fill square (part of the puzzle)
+        # B1.fillable() should output B1F
+        self.fillable = [[j == False for j in i] for i in self.board]
+
+
     # Board -> Terminal Output
     # for printing a Board to terminal
     # B1.printboard() should output:
@@ -95,6 +103,9 @@ class Board:
 # For easy example Board making
 B = False
 
+T = True
+F = False
+
 # A blank Sudoku Board
 B0 = Board([
     [B, B, B, B, B, B, B, B, B],
@@ -120,6 +131,19 @@ B1 = Board([
     [1, B, B, B, B, 8, B, B, 4],
     [B, B, B, B, 5, B, B, 7, B]
 ])
+
+# Fillable positions for B1
+B1F = [
+    [T, F, T, F, T, F, T, F, T],
+    [F, T, F, T, T, T, T, T, T],
+    [T, F, T, T, F, T, F, F, F],
+    [F, T, T, T, T, F, T, T, T],
+    [F, T, T, F, F, T, F, T, T],
+    [T, F, F, T, T, T, T, F, F],
+    [T, F, T, F, T, F, T, F, T],
+    [F, T, T, T, T, F, T, T, F],
+    [T, T, T, T, F, T, T, F, T]
+]
 
 
 # L_INDEX is ['A', 'I']
