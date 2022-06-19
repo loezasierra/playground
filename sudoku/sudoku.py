@@ -93,12 +93,19 @@ class Board:
         printdivider()
     
 
-    # Board Move -> Board
-    # fill board with given move
-    # B1 Move('A', 0, 5) should put a '5' at the top right of B1
-    # B1 Move('I', 8, 7) should put a '7' at the bottom left of B1
+    # Board Move -> Bool
+    # fill board with the given move
+    #   return True if fill was successfull
+    #   return False if fill was unseccessfull (as in trying to fill an unfillable square)
+    # B1 Move('A', 0, 5) should put a '5' at the top right of B1 and return True
+    # B1 Move('I', 8, 7) should put a '7' at the bottom left of B1 and return True
+    # B1 move('A', 1, 7) should return False
     def fill(self, move):
-        self.board[L_INDEX.index(move.indexl)][move.indexu] = move.value
+        if (self.fillable[L_INDEX.index(move.indexl)][move.indexu]):
+            self.board[L_INDEX.index(move.indexl)][move.indexu] = move.value
+            return True
+        else:
+            return False
 
 # For easy example Board making
 B = False
@@ -290,7 +297,10 @@ def main():
             continue
 
         # Fill game board with move
-        board.fill(move)
+        if (not board.fill(move)):
+            # Let user know if trying to fill an unfillable square
+            print("Can't fill that square")
+            print()
 
 
 
