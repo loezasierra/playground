@@ -90,7 +90,7 @@ class Board:
     # B1 Move('A', 0, 5) should put a '5' at the top right of B1
     # B1 Move('I', 8, 7) should put a '7' at the bottom left of B1
     def fill(self, move):
-        return
+        self.board[L_INDEX.index(move.indexl)][move.indexu] = move.value
 
 # For easy example Board making
 B = False
