@@ -10,23 +10,81 @@
 VALUE = [i for i in range(1, 10)]
 
 
-# BOARD is Board([Value || False][Value || False])   where each list is 9 elements long
+# GameBoard is [Value || False][Value || False]   where each list is 9 elements long
 # for a total of 81 elements.
-# interp. A Sudoku Board
+# interp. A playable Sudoku Board
+#         False is Empty Square
+
+# For easy example Board making
+B = False
+
+# A blank Sudoku Board
+B0 = [
+    [B, B, B, B, B, B, B, B, B],
+    [B, B, B, B, B, B, B, B, B],
+    [B, B, B, B, B, B, B, B, B],
+    [B, B, B, B, B, B, B, B, B],
+    [B, B, B, B, B, B, B, B, B],
+    [B, B, B, B, B, B, B, B, B],
+    [B, B, B, B, B, B, B, B, B],
+    [B, B, B, B, B, B, B, B, B],
+    [B, B, B, B, B, B, B, B, B]
+]
+
+# An easy Sudoku Board
+# Source: https://image.shutterstock.com/image-vector/vector-sudoku-answer-164-puzzle-260nw-1168048867.jpg
+B1 = [
+    [B, 8, B, 7, B, 1, B, 3, B],
+    [4, B, 9, B, B, B, B, B, B],
+    [B, 5, B, B, 6, B, 4, 1, 8],
+    [7, B, B, B, B, 9, B, B, B],
+    [8, B, B, 6, 1, B, 5, B, B],
+    [B, 3, 5, B, B, B, B, 2, 9],
+    [B, 6, B, 4, B, 7, B, 9, B],
+    [1, B, B, B, B, 8, B, B, 4],
+    [B, B, B, B, 5, B, B, 7, B]
+]
+
+
+# SolutionBoard is [Value][Value]   where each list is 9 elements long
+# for a total of 81 elements
+# interp. the solution to a GameBoard
+
+# Solution for B1
+B1S = [
+    [2, 8, 6, 7, 4, 1, 9, 3, 5],
+    [4, 1, 9, 3, 8, 5, 7, 6, 2],
+    [3, 5, 7, 9, 6, 2, 4, 1, 8],
+    [7, 4, 1, 5, 2, 9, 3, 8, 6],
+    [8, 9, 2, 6, 1, 3, 5, 4, 7],
+    [6, 3, 5, 8, 7, 4, 1, 2, 9],
+    [5, 6, 8, 4, 3, 7, 2, 9, 1],
+    [1, 7, 3, 2, 9, 8, 6, 5, 4],
+    [9, 2, 4, 1, 5, 6, 8, 7, 3]
+]
+
+
 class Board:
-    def __init__(self, b):
+    # Board is Board(GameBoard, SolutionBoard)
+    # interp. A playable Sudoku Board with its solution
+
+    def __init__(self, b, s):
+        # GameBoard
         self.board = b
+
+        # SolutionBoard
+        self.solution = s
 
         # FILLABLE is Fillable([Bool][Bool])   where each list is 9 elements long
         # interp. The fillable positions by user on the board
         #         True means user is able to fill element on Board
         #         False means user is not able to fill square (part of the puzzle)
         # B1.fillable() should output B1F
+        # Example at end of object definition
         self.fillable = [[j == False for j in i] for i in self.board]
 
-
     # Board -> Terminal Output
-    # for printing a Board to terminal
+    # for printing a GameBoard to terminal
     # B1.printboard() should output:
     """
         0 1 2   3 4 5   6 7 8
@@ -107,37 +165,9 @@ class Board:
         else:
             return False
 
-# For easy example Board making
-B = False
-
+# For easy example Fillable board making
 T = True
 F = False
-
-# A blank Sudoku Board
-B0 = Board([
-    [B, B, B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B, B, B]
-])
-
-# An easy Sudoku Board
-B1 = Board([
-    [B, 8, B, 7, B, 1, B, 3, B],
-    [4, B, 9, B, B, B, B, B, B],
-    [B, 5, B, B, 6, B, 4, 1, 8],
-    [7, B, B, B, B, 9, B, B, B],
-    [8, B, B, 6, 1, B, 5, B, B],
-    [B, 3, 5, B, B, B, B, 2, 9],
-    [B, 6, B, 4, B, 7, B, 9, B],
-    [1, B, B, B, B, 8, B, B, 4],
-    [B, B, B, B, 5, B, B, 7, B]
-])
 
 # Fillable positions for B1
 B1F = [
@@ -151,6 +181,8 @@ B1F = [
     [F, T, T, T, T, F, T, T, F],
     [T, T, T, T, F, T, T, F, T]
 ]
+
+BOARD1 = Board(B1, B1S)
 
 
 # L_INDEX is ['A', 'I']
@@ -268,7 +300,7 @@ def main():
             return
     
     # Store game board
-    board = Board(B1.board)
+    board = BOARD1
 
     while True:
 
