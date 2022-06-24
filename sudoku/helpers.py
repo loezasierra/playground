@@ -1,5 +1,7 @@
 # Helpers for Terminal Sudoku
 
+import csv
+import random
 
 # === Constans ===
 
@@ -106,6 +108,14 @@ S1 = Sudoku(B1, B1S)
 #         'hard'   Contains Naked Pairs, Hidden Pairs, Pointing Pairs/Triples and/or Box/Line Intersections
 #         'expert' Contains Guessues and/or Backtracks
 
+# valid difficulties and their file paths
+difficulty = {
+    "easy": easy_path, 
+    "medium": medium_path, 
+    "hard": hard_path, 
+    "expert": expert_path
+    }
+
 
 
 # === Functions ===
@@ -113,5 +123,22 @@ S1 = Sudoku(B1, B1S)
 # Difficulty -> Sudoku
 # return a random Sudoku of given difficulty from appropriate file
 # getsudoku('easy') should return random Sudoku from easy_path
-def getsudoku(dif):
-    return S1
+def getsudoku(d):
+
+    # Get appropriate file path
+    if d in difficulty.keys():
+        path = difficulty[d]
+    # Return if not valid difficulty
+    else:
+        return
+    
+    # Read appropriate file
+    with open(path, newline='') as file:
+        # Read as dictionary
+        reader = csv.DictReader(file)
+
+        # Choose a random row
+        row = random.choice(list(reader))
+
+    # return the Sudoku
+    return Sudoku(row['Puzzle'], row['Solution'])
