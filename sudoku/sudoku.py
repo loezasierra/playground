@@ -177,6 +177,18 @@ class Board:
             return True
         else:
             return False
+    
+    # Board -> Bool
+    # return true if GameBoard is full of moves (has no empty spots)
+    # BOARD1.isfull() should return False
+    # BOARD2.isfull() should return True
+    def isfull(self):
+        for i in self.board:
+            for j in i:
+                if j == False:
+                    return False
+        return True
+
 
 # For easy example Fillable board making
 T = True
