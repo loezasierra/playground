@@ -1,5 +1,15 @@
 # A terminal Sudoku game
 
+# === Constants ===
+
+# valid difficulties
+difficulty = {
+    0 : "easy",
+    1 : "medium",
+    2 : "hard",
+    3 : "expert"
+}
+
 # === Data Definitions ===
 
 
@@ -225,13 +235,15 @@ class UserInput:
         self.input = input
     
     # USER_INPUT -> Boolean
-    # Return true if input is 'P'
-    # "P" should return True
-    # "p" should return True
+    # Return true if input is a valid difficulty
+    # "0" should return True
+    # "3" should return True
+    # "4" should return False
     # Any other single char should return False
     # Any string longer than 1 should return False
     def play(self):
-        return (self.input.upper() == 'P')
+        valid = [str(d) for d in difficulty.keys()]
+        return (self.input in valid)
     
     # USER_INPUT -> Boolean
     # Return true if input is 'Q"
@@ -286,10 +298,14 @@ def main():
 
     # Print header
     print("Terminal Sudoku")
-    print("'p' to play, 'q' to exit.")
+    print()
+    print("Choose a difficulty:")
+    for d in difficulty:
+        print(f"  '{d}' for {difficulty[d]}")
+    print("'q' to exit.")
     print()
 
-    # Start game if user inputs 'p', quit if 'q'
+    # Start game if user inputs a difficulty, quit if 'q'
     while True:
         user = UserInput(input(prompt))
 
