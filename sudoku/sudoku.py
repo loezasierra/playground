@@ -3,6 +3,9 @@
 # === Constants ===
 
 # valid difficulties
+from helpers import getsudoku
+
+
 difficulty = {
     0 : "easy",
     1 : "medium",
@@ -315,8 +318,11 @@ def main():
         if user.quit():
             return
     
+    # Get a game board of appropriate difficulty
+    game = getsudoku(difficulty[int(user.input)])
+
     # Store game board
-    board = BOARD1
+    board = Board(game.game, game.solution)
 
     while True:
 
