@@ -76,6 +76,19 @@ B1S = [
     [9, 2, 4, 1, 5, 6, 8, 7, 3]
 ]
 
+# Board 1 with error in first spot
+B1ERROR = [
+    [1, 8, 6, 7, 4, 1, 9, 3, 5],
+    [4, 1, 9, 3, 8, 5, 7, 6, 2],
+    [3, 5, 7, 9, 6, 2, 4, 1, 8],
+    [7, 4, 1, 5, 2, 9, 3, 8, 6],
+    [8, 9, 2, 6, 1, 3, 5, 4, 7],
+    [6, 3, 5, 8, 7, 4, 1, 2, 9],
+    [5, 6, 8, 4, 3, 7, 2, 9, 1],
+    [1, 7, 3, 2, 9, 8, 6, 5, 4],
+    [9, 2, 4, 1, 5, 6, 8, 7, 3]
+]
+
 
 class Board:
     # Board is Board(GameBoard, SolutionBoard)
@@ -188,7 +201,30 @@ class Board:
                 if j == False:
                     return False
         return True
+    
+    # Board -> False or (listof String)
+    # return False if no errors in Board (Board is filled correctly)
+    #    else return list of errors in format: ["A0", "B1", etc...]
+    # BOARD2.errors() should return False
+    # BOARD3.errors() should return ["A0"]
+    def errors(self):
+        # Intitiate empty list
+        errors = []
 
+        # For space in board
+        for i in range(9):
+            for j in range(9):
+                # Check if GameBoard matches Solution
+                if self.board[i][j] != self.solution[i][j]:
+                    # Add to errors list of error
+                    errors.append(L_INDEX[i]+str(j))
+        
+        # Return False if no errors
+        if len(errors) == 0:
+            return False
+        # Return list of errors
+        else:
+            return errors
 
 # For easy example Fillable board making
 T = True
@@ -208,6 +244,8 @@ B1F = [
 ]
 
 BOARD1 = Board(B1, B1S)
+BOARD2 = Board(B1S, B1S)
+BOARD3 = Board(B1ERROR, B1S)
 
 
 # L_INDEX is ['A', 'I']
@@ -367,6 +405,20 @@ def main():
             # Let user know if trying to fill an unfillable square
             print("Can't fill that square")
             print()
+        
+        # Check if board is full
+        if (board.isfull()):
+            # Print success if no errors
+            errors = board.errors()
+            if (not errors):
+                print("Good job! Puzzle finished.")
+                print()
+                return
+            else:
+                for e in errors:
+                    print("Errors in following place:")
+                    print(f"{e}, ")
+                print()
 
 
 
