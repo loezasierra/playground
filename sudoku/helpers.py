@@ -141,4 +141,27 @@ def getsudoku(d):
         row = random.choice(list(reader))
 
     # return the Sudoku
-    return Sudoku(row['Puzzle'], row['Solution'])
+    return Sudoku(stringtoboard(row['Puzzle']), stringtoboard(row['Solution']))
+
+
+# SudokuString -> Board
+# convert a SudokuString to a Board
+# stringtoboard(SS0) should return B1
+# stringtoboard(SS1) shoulr return B1S
+def stringtoboard(s):
+
+    # Char -> (Value | False)
+    # convert a character in s to either False or Value
+    # '.' should return False
+    # '9' should return 9
+    def convert(c):
+        if c == '.':
+            return False
+        else:
+            return int(c)
+            
+    # Split SudokuString s into a board layout
+    split = [s[i: i + 9] for i in range(0, 81, 9)]
+
+    # Return the converted board
+    return [[convert(c) for c in i] for i in split]
