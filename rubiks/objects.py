@@ -13,7 +13,15 @@ class constants:
     SCREEN_START = (0, 0)
 
     # Colors
-    WHITE = (255, 255, 255)
+    WHITE  = (255, 255, 255)
+    BLACK  = (0, 0, 0)
+    CREAM  = (255, 237, 216)
+    GREEN  = (90, 196, 127)
+    RED    = (114, 14, 7)
+    BLUE   = (0, 71, 119)
+    ORANGE = (242, 84, 45)
+    YELLOW = (244, 226, 133)
+    TRANSPARENT = (0, 0, 0, 0)
 
 
 ## Data ##
@@ -114,6 +122,152 @@ interp. Cube is always seen from the perspective with a White Side on top and Gr
         self.down  = c['d']
         self.left  = c['l']
         self.right = c['r']
+    
+    # Cube Int -> pygame.Surface
+    # Return Cube as a pygame Surface (i.e. image) of given width in pixels
+    def image(self, w):
+        # Constants #
+        # Grid
+        grid_square = round(w / 14) # Imagine drawing on a grid for easier implementation
+        width  = grid_square * 14
+        height = grid_square * 9
+        center_x = round(width / 2)
+
+        third_square = round(grid_square / 3)
+        two_third_square = round((grid_square / 3) * 2)
+        block_outline = round(grid_square / 8) # thickness of block outline
+
+        # Cube coordinates
+        front_start = (grid_square * 4,  grid_square * 2)
+        back_start  = ((grid_square * 11) - third_square, third_square)
+        up_start    = (grid_square * 7, grid_square)
+        down_start  = (grid_square * 7, (grid_square * 7) - third_square)
+        left_start  = (third_square, grid_square + third_square)
+        right_start = (grid_square * 7,  grid_square * 3)
+
+        # Prepare background to draw on
+        background = pygame.Surface((width, height))
+        image = background.convert_alpha()
+        image.fill(constants.TRANSPARENT)
+        
+        # Helpers #
+
+        # Tuple Side -> None
+        # Draw a left-sided panel on image of Side starting from p
+        def draw_left_panel(p, s):
+
+            # Tuple Color -> None
+            # Draw a left-sided block on image with color starting from p
+            def draw_block(p, c):
+                # Calculate polygon points
+                points = [
+                    p, # top left
+                    (p[0], p[1] + grid_square), # bottom left
+                    (p[0] + grid_square, p[1] + (grid_square + third_square)), # bottom right
+                    (p[0] + grid_square, p[1] + third_square) # top right
+                ]
+
+                # Draw block with its outline
+                pygame.draw.polygon(image, constants.BLACK, points, width = block_outline)
+                pygame.draw.polygon(image, c, points)
+                return
+
+            # For calculating
+            starting_point = p
+            
+            # For each block in Side
+            for i in range(3):
+                for j in range(3):
+                    # Remember color
+                    color = s[i][j]
+                    # Draw block
+                    draw_block(starting_point, getattr(constants, color.upper()))
+                    # Move starting point to next block in current row
+                    starting_point = (starting_point[0] + grid_square, starting_point[1] + third_square)
+                # Move starting point to next row
+                starting_point = (p[0], starting_point[1])
+            return
+        
+        # Tuple Side -> None
+        # Draw a right-sided panel on image of Side starting from p
+        def draw_right_panel(p, s):
+
+            # Tuple Color -> None
+            # Draw a right-sided block on image with color starting from p
+            def draw_block(p, c):
+                # Calculate polygon points
+                points = [
+                    p, # top left
+                    (p[0], p[1] + grid_square), # bottom left
+                    (p[0] + grid_square, p[1] + (grid_square - third_square)), # bottom right
+                    (p[0] + grid_square, p[1] - third_square) # top right
+                ]
+
+                # Draw block with its outline
+                pygame.draw.polygon(image, constants.BLACK, points, width = block_outline)
+                pygame.draw.polygon(image, c, points)
+                return
+            
+            # For calculating
+            starting_point = p
+
+            # For each block in Side
+            for i in range(3):
+                for j in range(3):
+                    # Remember color
+                    color = s[i][j]
+                    # Draw block
+                    draw_block(starting_point, getattr(constants, color.upper()))
+                    # Move starting point to next block in current row
+                    starting_point = (starting_point[0] + grid_square, starting_point[1] - third_square)
+                # Move starting point to next row
+                starting_point = (p[0], starting_point[1] + (grid_square * 2))
+            return
+        
+        # Tuple Side -> None
+        # Draw an up facing panel on Image of Side starting from p
+        def draw_up_panel(p, s):
+
+            # Tuple Color -> None
+            # Draw an up sided block on image with color starting from p
+            def draw_block(p, c):
+                # Calculate polygon points
+                points = [
+                    p, # top left
+                    (p[0] - grid_square, p[1] + third_square), # bottom left
+                    (p[0], p[1] + two_third_square), # bottom right
+                    (p[0] + grid_square, p[1] + third_square) # top right
+                ]
+
+                # Draw block with its outline
+                pygame.draw.polygon(image, constants.BLACK, points, width = block_outline)
+                pygame.draw.polygon(image, c, points)
+                return
+            
+            # For calculating
+            starting_point = p
+
+            # For each block in Side
+            for i in range(3):
+                for j in range(3):
+                    # Remember color
+                    color = s[i][j]
+                    # Draw block
+                    draw_block(starting_point, getattr(constants, color.upper()))
+                    # Move starting point to next block in current row
+                    starting_point = (starting_point[0] + grid_square, starting_point[1] + third_square)
+                # Move starting point to next row
+                starting_point = (starting_point[0] - (grid_square * 4), starting_point[1] - two_third_square)
+            return
+        
+        # Draw all sides and return completed image
+        draw_up_panel(up_start, self.up)
+        draw_right_panel(right_start, self.right)
+        draw_left_panel(front_start, self.front)
+        draw_right_panel(left_start, self.left)
+        draw_left_panel(back_start, self.back)
+        draw_up_panel(down_start, self.down)
+        return image
 
 
 # Default Rubik's Cube
