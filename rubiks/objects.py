@@ -114,27 +114,55 @@ interp. a face of a Rubik's Cube as:
     front, back, up, down, left, right
 """
 
+# All faces
+FACES = [
+    'f',
+    'b',
+    'u',
+    'd',
+    'l',
+    'r'
+]
+
 
 class Move:
     """
 Move is Move(Face, Bool, Bool)
 interp. A valid Rubik's Cube move containing the Face to move,
-        whether the move is Clockwise (True) or CounterClockwise (False)
-        whether the move is Single (True) or Double layer (False)
+        whether the move is Clockwise (False) or CounterClockwise (True)
+        whether the move is Single (False) or Double layer (True)
     """
-    def __init__(self, f, c, s):
+    def __init__(self, f, c, d):
         self.face = f
-        self.clockwise = c
-        self.single = s
+        self.counterclock = c
+        self.double = d
 
 # Single Up rotated Clockwise
-M0 = Move('u', True, True)
+M0 = Move('u', False, False)
 
 # Single Front rotated CounterClockwise
-M1 = Move('f', False, True)
+M1 = Move('f', True, False)
 
 # Double Layer Right rotated 
-M2 = Move('r', True, False)
+M2 = Move('r', False, True)
+
+# All possible moves where:
+# 'f'   is regular move
+# 'fc'  is counterclockwise
+# 'fd'  is double layer
+# 'fcd' is counterclockwise double layer
+def name_moves(k, c, d):
+    if c and d:
+        return f"{k}cd"
+    elif c:
+        return f"{k}c"
+    elif d:
+        return f"{k}d"
+    else:
+        return k
+MOVES = {name_moves(k, c, d) : Move(k, c, d) for k in FACES 
+            for c in [True, False] 
+            for d in [True, False]}
 
 
 class Cube:
