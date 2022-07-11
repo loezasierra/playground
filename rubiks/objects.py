@@ -147,22 +147,16 @@ M1 = Move('f', True, False)
 M2 = Move('r', False, True)
 
 # All possible moves where:
-# 'f'   is regular move
-# 'fc'  is counterclockwise
-# 'fd'  is double layer
-# 'fcd' is counterclockwise double layer
-def name_moves(k, c, d):
-    if c and d:
-        return f"{k}cd"
-    elif c:
-        return f"{k}c"
-    elif d:
-        return f"{k}d"
-    else:
-        return k
-MOVES = {name_moves(k, c, d) : Move(k, c, d) for k in FACES 
-            for c in [True, False] 
-            for d in [True, False]}
+# 'r'  is all Regular moves
+# 'c'  is all CounterClockwise moves
+# 'd'  is all Double Layer moves
+# 'cd' is all Double Layer CounterClockwise Moves
+MOVES = {
+    'r':  [Move(f, False, False) for f in FACES],
+    'c':  [Move(f, True, False)  for f in FACES],
+    'd':  [Move(f, False, True)  for f in FACES],
+    'cd': [Move(f, True, True)   for f in FACES]
+}
 
 
 class Cube:
