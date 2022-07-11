@@ -102,16 +102,45 @@ SY = [
 ]
 
 
+"""
+Face is one of:
+    - 'f'
+    - 'b'
+    - 'u'
+    - 'd'
+    - 'l'
+    - 'r'
+interp. a face of a Rubik's Cube as:
+    front, back, up, down, left, right
+"""
+
+
+class Move:
+    """
+Move is Move(Face, Bool, Bool)
+interp. A valid Rubik's Cube move containing the Face to move,
+        whether the move is Clockwise (True) or CounterClockwise (False)
+        whether the move is Single (True) or Double layer (False)
+    """
+    def __init__(self, f, c, s):
+        self.face = f
+        self.clockwise = c
+        self.single = s
+
+# Single Up rotated Clockwise
+M0 = Move('u', True, True)
+
+# Single Front rotated CounterClockwise
+M1 = Move('f', False, True)
+
+# Double Layer Right rotated 
+M2 = Move('r', True, False)
+
+
 class Cube:
     """
 Cube is Cube({'f': Side, 'b': Side, 'u': Side, 'd': Side, 'l': Side, 'r': Side})
-interp. A Rubik's Cube with 6 sides
-        f is front side
-        b is back side
-        u is up side
-        d is down side
-        l is left side
-        r is right side
+interp. A Rubik's Cube with 6 sides corresponding to a Face
 interp. Cube is always seen from the perspective with a White Side on top and Green Side on front
     """
     def __init__(self, c):
