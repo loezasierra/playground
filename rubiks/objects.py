@@ -156,17 +156,23 @@ M1 = Move('f', True, False)
 # Double Layer Right rotated 
 M2 = Move('r', False, True)
 
-# All possible moves where:
-# 'r'  is all Regular moves
-# 'c'  is all CounterClockwise moves
-# 'd'  is all Double Layer moves
-# 'cd' is all Double Layer CounterClockwise Moves
-MOVES = {
-    'r':  [Move(f, False, False) for f in FACES],
-    'c':  [Move(f, True, False)  for f in FACES],
-    'd':  [Move(f, False, True)  for f in FACES],
-    'cd': [Move(f, True, True)   for f in FACES]
-}
+
+class menu:
+    """
+Menu is {"MoveType": [listof Move]}
+interp. Menu for making moves on a Rubik's Cube
+    """
+    # Menu where:
+    #   - "r"  is Regular
+    #   - "c"  is CounterClockwise
+    #   - "d"  is DoubleLayer
+    #   - "cd" is DoubleLayer CounterClockwise
+    menu = {
+        "r":  [Move(f, False, False) for f in FACES],
+        "c":  [Move(f, True, False)  for f in FACES],
+        "d":  [Move(f, False, True)  for f in FACES],
+        "cd": [Move(f, True, True)   for f in FACES],
+    }
 
 
 class Cube:
