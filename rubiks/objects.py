@@ -125,6 +125,16 @@ FACES = [
 ]
 
 
+"""
+MoveType is one of:
+    - "Regular"
+    - "CounterClockwise"
+    - "DoubleLayer"
+    - "DoubleLayer CounterClockwise"
+interp. the type of move being performed on a Rubik's Cube
+"""
+
+
 class Move:
     """
 Move is Move(Face, Bool, Bool)
