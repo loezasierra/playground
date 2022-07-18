@@ -1,12 +1,13 @@
 # Find special characters in a file of words
 # Usage: find_special.py <text.txt>
 
-import sys
-import os.path
+from helpers import valid_usage, get_arg_file
 import string
 
 ## Constants ##
 class constants:
+    USAGE = "Usage: find-special.py <text.txt>"
+
     UPPERS = list(string.ascii_uppercase)
     LOWERS = list(string.ascii_lowercase)
     NUMS   = [str(i) for i in range(0, 10)]
@@ -19,50 +20,18 @@ class constants:
 Print list of speical characters found in .txt file to terminal
 """
 def main():
+    # Ensure valid command line usage
+    if not valid_usage(2, constants.USAGE):
+        return
+
     # Get file
-    infile = get_file()
+    infile = get_arg_file(1, constants.USAGE, ".txt", mustexist=True, nonempty=True)
     if not infile:
         return
     
     specials = find_special(infile)
     print_chars(specials)
     return
-
-
-"""
-None -> String or False
-Return the valid name of a .txt file from argument
-        False if file is invalid
-"""
-def get_file():
-    usage = "Usage: find-special.py <text.txt>"
-
-    # Check valid usage
-    if len(sys.argv) != 2:
-        print(usage)
-        return False
-    
-    input = sys.argv[1]
-
-    # Check valid file type
-    if not input.endswith(".txt"):
-        print("Invalid file type")
-        print(usage)
-        return False
-    
-    # Check file exists
-    if not os.path.exists(input):
-        print("File does not exist")
-        print(usage)
-        return False
-    
-    # Check file is not empty
-    if not os.path.getsize(input) > 0:
-        print("File is empty")
-        print(usage)
-        return False
-    
-    return input
 
 
 """

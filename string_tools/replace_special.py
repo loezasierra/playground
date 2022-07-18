@@ -1,8 +1,7 @@
 # Replace special characters in a file
 # Usage: replace_special.py <to_replace.txt> <output.txt>
 
-import sys
-import os.path
+from helpers import valid_usage, get_arg_file
 
 ## Constants ##
 class constants:
@@ -33,82 +32,21 @@ Create a new text file where all special characters are replaced by normal chara
 """
 def main():
     # Ensure valid command line usage
-    if not validate():
+    if not valid_usage(3, constants.USAGE):
         return
 
     # Get valid infile
-    infile = get_infile()
+    infile = get_arg_file(1, constants.USAGE, ".txt", mustexist=True, nonempty=True)
     if not infile:
         return
     
     # Get valid outfile
-    outfile = get_outfile()
+    outfile = get_arg_file(2, constants.USAGE, ".txt", clear=True)
     if not outfile:
         return
 
     replace_special(infile, outfile)
     return
-
-
-"""
-None -> Bool
-Return true if given 2 arguments (infile and outfile)
-"""
-def validate():
-    if len(sys.argv) != 3:
-        print(constants.USAGE)
-        return False        
-    return True
-
-
-"""
-None -> String or False
-Return the name of a valid and existing .txt file from first command line argument
-        False if file is invalid
-"""
-def get_infile():
-    infile = sys.argv[1]
-
-    # Check valid file type
-    if not infile.endswith(".txt"):
-        print("Invalid file type")
-        print(constants.USAGE)
-        return False
-    
-    # Check file exists
-    if not os.path.exists(infile):
-        print("File does not exist")
-        print(constants.USAGE)
-        return False
-    
-    # Check file is not empty
-    if not os.path.getsize(infile) > 0:
-        print("File is empty")
-        print(constants.USAGE)
-        return False
-
-    return infile
-
-
-"""
-None -> String or False
-Return the name of a valid .txt file from second command line argument
-        False if file name is invalid
-"""
-def get_outfile():
-    outfile = sys.argv[2]
-
-    # Check valid file type
-    if not outfile.endswith(".txt"):
-        print("Invalid file type")
-        print(constants.USAGE)
-        return False
-    
-    # Clear file if it already exists
-    if os.path.exists(outfile):
-        open(outfile, 'w').close()
-    
-    return outfile
 
 
 """
