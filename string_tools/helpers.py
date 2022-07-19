@@ -3,8 +3,17 @@
 import sys
 import os.path
 
+class constants:
+    # for valid_usage
+    INVALID_USAGE = "Invalid usage"
 
-def valid_usage(argument_count=1, message="Invalid usage"):
+    # for get_arg_file
+    INVALID_EXTENSION = "File {} must be of type {}"
+    FILE_NONEXIST = "File {} does not exist"
+    FILE_NONEMPTY = "File {} is empty"
+
+
+def valid_usage(argument_count=1, message=constants.INVALID_USAGE):
     """
     Int String -> Bool
     Return true if desired number of command line arguments are given. Otherwise print message.
@@ -29,7 +38,7 @@ def get_arg_file(n = 0, message=False, extension=False, mustexist=False, nonempt
     # Check valid file type
     if extension:
         if not arg.endswith(extension):
-            print(f"File {arg} must be of type {extension}")
+            print(constants.INVALID_EXTENSION.format(arg, extension))
             if message:
                 print(message)
             return False
@@ -37,7 +46,7 @@ def get_arg_file(n = 0, message=False, extension=False, mustexist=False, nonempt
     # Check file exists
     if mustexist:
         if not os.path.exists(arg):
-            print(f"File {arg} does not exist")
+            print(constants.FILE_NONEXIST.format(arg))
             if message:
                 print(message)
             return False
@@ -45,7 +54,7 @@ def get_arg_file(n = 0, message=False, extension=False, mustexist=False, nonempt
     # Check file is not empty
     if nonempty:
         if not os.path.getsize(arg) > 0:
-            print(f"File {arg} is empty")
+            print(constants.FILE_NONEMPTY.format(arg))
             if message:
                 print(message)
             return False
